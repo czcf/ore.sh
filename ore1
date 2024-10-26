@@ -1,0 +1,29 @@
+  GNU nano 6.2                                                    ore.sh                                                             #!/bin/bash
+
+# 检查是否以root用户运行脚本
+if [ "$(id -u)" != "0" ]; then
+    echo "此脚本需要以root用户权限运行。"
+    echo "请尝试使用 'sudo -i' 命令切换到root用户，然后再次运行此脚本。"
+    exit 1
+fi
+
+
+function install_node() {
+
+# 更新系统和安装必要的包
+echo "更新系统软件包..."
+sudo apt update && sudo apt upgrade -y
+echo "安装必要的工具和依赖..."
+sudo apt install -y curl build-essential jq git libssl-dev pkg-config screen
+
+# 安装 Rust 和 Cargo
+echo "正在安装 Rust 和 Cargo..."
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source $HOME/.cargo/env
+
+# 安装 Solana CLI
+echo "正在安装 Solana CLI..."
+sh -c "$(curl -sSfL https://release.solana.com/v1.18.4/install)"
+
+# 检查 solana-keygen 是否在 PATH 中
+if ! command -v solana-keygen &> /dev/null; then
