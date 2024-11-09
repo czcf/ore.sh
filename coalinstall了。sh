@@ -1,0 +1,8 @@
+Ok, so solo mining, you need to use coal xxx where xxx are the command
+
+If you want to check your balance use
+```coal balance```
+To claim
+```coal claim```
+
+As you are solo mining you are paying for your transaction fees, I suggest you to join a pool to avoid that, especially if you don't have an high amount of hash power
